@@ -1,0 +1,8 @@
+<?php
+
+use CronBundle\Application\Cli\Cron;
+
+require 'vendor/autoload.php';
+
+$cronCli = new Cron();
+$cronCli->run();

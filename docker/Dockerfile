@@ -13,4 +13,4 @@ RUN apk add --no-cache \
 RUN docker-php-source extract \
     && pecl install xdebug
 
-WORKDIR /var/www/symfony
+WORKDIR /var/www/html

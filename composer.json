@@ -19,12 +19,12 @@
     ],
     "autoload": {
         "psr-4": {
-            "CronBundle\\Cron\\": "src/CronBundle"
+            "CronBundle\\": "src/CronBundle"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "CronBundle\\Cron\\Tests\\": "src/CronBundle/Tests"
+            "CronBundle\\Tests\\": "src/CronBundle/Tests"
         }
     },
     "minimum-stability": "stable"

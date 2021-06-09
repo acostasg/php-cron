@@ -30,7 +30,7 @@ class JobCollection implements Iterator
      * @return Job
      * @throws Exception
      */
-    public function getProduct(int $position): Job
+    public function get(int $position): Job
     {
         if (isset($this->jobs[$position])) {
             return $this->jobs[$position];
