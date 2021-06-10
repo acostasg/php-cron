@@ -64,7 +64,7 @@ class FileCronRepository implements CronJobsRepository
                     JobFactory::build(
                         $this->fileParserHandler->getCommand(),
                         $this->fileParserHandler->getArguments(),
-                        new CronExpression($this->fileParserHandler->getExpressionCron(), new FieldFactory())
+                        $this->fileParserHandler->getExpressionCron()
                     )
                 );
             } catch (\Exception $e) {

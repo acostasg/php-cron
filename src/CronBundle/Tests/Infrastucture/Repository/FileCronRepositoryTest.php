@@ -52,7 +52,7 @@ class FileCronRepositoryTest extends TestCase
         $this->assertCount(1, $jobCollection);
         $this->assertEquals(self::COMMAND_TEST, $jobCollection->get(0)->getCommand());
         $this->assertEquals(self::ARGUMENTS_TEST, $jobCollection->get(0)->getArguments());
-        $this->assertEquals(self::EXPRESSION_TEST, $jobCollection->get(0)->getCronExpression()->getExpression());
+        $this->assertEquals(self::EXPRESSION_TEST, $jobCollection->get(0)->expression()->getExpression());
     }
 
     /**
@@ -93,7 +93,7 @@ class FileCronRepositoryTest extends TestCase
         $this->assertCount(1, $jobCollection);
         $this->assertEquals(self::COMMAND_TEST, $jobCollection->get(0)->getCommand());
         $this->assertEquals([], $jobCollection->get(0)->getArguments());
-        $this->assertEquals(self::EXPRESSION_TEST, $jobCollection->get(0)->getCronExpression()->getExpression());
+        $this->assertEquals(self::EXPRESSION_TEST, $jobCollection->get(0)->expression()->getExpression());
     }
 
     /**

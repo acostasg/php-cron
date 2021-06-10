@@ -5,9 +5,6 @@ namespace CronBundle\Application\Cli;
 
 use CronBundle\Application\Command\ImportJobsUseCase;
 use CronBundle\Application\Command\ScheduleJobsUseCase;
-use CronBundle\Infrastucture\Repository\FileCronRepository;
-use CronBundle\Infrastucture\Repository\Handler\FileHandler;
-use CronBundle\Infrastucture\Repository\Handler\FileCronHandler;
 use Psr\Log\LoggerInterface;
 
 class Cron implements ConsoleInterface
@@ -33,18 +30,25 @@ class Cron implements ConsoleInterface
     }
 
 
-    public function run(): void
+    public function run(bool $daemonMode = true): void
     {
         $this->logger->info('Load jobs from repository');
         $jobCollection = $this->importJobsUseCase->execute();
         $this->logger->info('Execute schedule and running service (Control+C to finish).');
 
-        $existJobs = true;
-        while ($existJobs) {
-            $existJobs = $this->scheduleJobsUseCase->execute($jobCollection);
+        while (true) {
+            $response = $this->scheduleJobsUseCase->execute($jobCollection);
+            if (!$response->getJobErrors()->isEmpty()) {
+                foreach ($response->getJobErrors() as $jobError) {
+                    $this->logger->error($jobError->getCommand(). ' output error: '. $jobError->getOutput());
+                }
+            }
+
+            if (!$daemonMode) {
+                return;
+            }
+
             sleep(1);
         }
-
-        $this->logger->info('Finish!!! Not Jobs pending to execute (Control+C to finish).');
     }
 }

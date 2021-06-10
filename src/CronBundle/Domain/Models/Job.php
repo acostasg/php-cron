@@ -3,8 +3,8 @@
 
 namespace CronBundle\Domain\Models;
 
-use Cron\CronExpression;
 use CronBundle\Domain\Repository\Exception\InvalidJobData;
+use CronBundle\Domain\ValueObject\Expression;
 use CronBundle\Domain\ValueObject\JobId;
 use DateTime;
 
@@ -49,16 +49,16 @@ class Job
     /**
      * Date time to process command
      *
-     * @var CronExpression
+     * @var Expression
      */
-    private CronExpression $cronExpression;
+    private Expression $cronExpression;
 
     /**
      * The output of the executed command
      *
-     * @var string|null
+     * @var string
      */
-    private ?string $output = null;
+    private string $output = '';
 
     /**
      * The output code of the command
@@ -148,17 +148,17 @@ class Job
     }
 
     /**
-     * @return string|null
+     * @return string
      */
-    public function getOutput(): ?string
+    public function getOutput(): string
     {
         return $this->output;
     }
 
     /**
-     * @param string|null $output
+     * @param string $output
      */
-    public function setOutput(?string $output): void
+    public function setOutput(string $output): void
     {
         $this->output = $output;
     }
@@ -180,9 +180,9 @@ class Job
     }
 
     /**
-     * @return CronExpression
+     * @return Expression
      */
-    public function getCronExpression(): CronExpression
+    public function expression(): Expression
     {
         return $this->cronExpression;
     }
@@ -194,7 +194,7 @@ class Job
      * @param string $command
      * @param string[] $arguments
      * @param DateTime $createdDatetime
-     * @param CronExpression $cronExpression
+     * @param Expression $cronExpression
      * @throws InvalidJobData
      */
     public function __construct(
@@ -202,7 +202,7 @@ class Job
         string $command,
         array $arguments,
         DateTime $createdDatetime,
-        CronExpression $cronExpression
+        Expression $cronExpression
     ) {
         if (empty($command)) {
             throw new InvalidJobData("Empty command is no valid job");

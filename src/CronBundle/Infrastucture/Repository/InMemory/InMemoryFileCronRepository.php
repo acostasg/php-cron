@@ -3,8 +3,6 @@
 
 namespace CronBundle\Infrastucture\Repository\InMemory;
 
-use Cron\CronExpression;
-use Cron\FieldFactory;
 use CronBundle\Domain\Models\Collection\JobCollection;
 use CronBundle\Domain\Models\Factory\JobFactory;
 use CronBundle\Domain\Repository\CronJobsRepository;
@@ -23,14 +21,14 @@ class InMemoryFileCronRepository implements CronJobsRepository
             JobFactory::build(
                 'CommandTest',
                 ['test'],
-                new CronExpression('8 * * * *', new FieldFactory())
+                '8 * * * *'
             )
         );
         $this->jobCollection->add(
             JobFactory::build(
                 'CommandTest2',
                 ['test2'],
-                new CronExpression('5 * * * *', new FieldFactory())
+                '5 * * * *'
             )
         );
     }
