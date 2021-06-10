@@ -1,7 +1,7 @@
 <?php
 
 
-namespace CronBundle\Infrastucture\Repository\Service;
+namespace CronBundle\Infrastucture\Service;
 
 use CronBundle\Domain\Models\Job;
 use CronBundle\Domain\Service\ExecuteCommand;

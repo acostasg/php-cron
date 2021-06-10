@@ -9,7 +9,7 @@ use CronBundle\Infrastucture\Repository\Handler\FileCronParserHandler;
 use CronBundle\Infrastucture\Repository\Handler\FileHandler;
 use CronBundle\Infrastucture\Repository\Handler\FileCronHandler;
 use CronBundle\Infrastucture\Repository\Handler\FileParserHandler;
-use CronBundle\Infrastucture\Repository\Service\TerminalExecuteCommandService;
+use CronBundle\Infrastucture\Service\TerminalExecuteCommandService;
 use Psr\Log\LoggerInterface;
 use function DI\create;
 use function DI\get;
