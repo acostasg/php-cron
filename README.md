@@ -15,7 +15,7 @@ Add docker for execute PHPUnit, PHPStan, Psalm and PHP-cs-fixer in development t
 docker-compose up --build
 ```
 
-Execute Application:
+Execute Application, is long running worker:
 ```
 docker exec -ti app php bin/App
 ```

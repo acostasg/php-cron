@@ -1,7 +1,10 @@
 {
     "description": "Test for Backend",
     "require": {
-        "php": "^7.4"
+        "php": "^7.4",
+        "dragonmantank/cron-expression" : "^2.0.0",
+        "psr/log": "~1.0",
+        "php-di/php-di": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.2",
