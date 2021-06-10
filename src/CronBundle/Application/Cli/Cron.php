@@ -38,9 +38,17 @@ class Cron implements ConsoleInterface
 
         while (true) {
             $response = $this->scheduleJobsUseCase->execute($jobCollection);
+
+
             if (!$response->getJobErrors()->isEmpty()) {
                 foreach ($response->getJobErrors() as $jobError) {
-                    $this->logger->error($jobError->getCommand(). ' output error: '. $jobError->getOutput());
+                    $this->logger->error($jobError->getCommand() . ' output error: ' . $jobError->getOutput());
+                }
+            }
+
+            if (!$response->getsuccessfulJobs()->isEmpty()) {
+                foreach ($response->getsuccessfulJobs() as $jobError) {
+                    $this->logger->info($jobError->getCommand() . ' output successful: ' . $jobError->getOutput());
                 }
             }
 

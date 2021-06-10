@@ -1,3 +1,5 @@
+* * * * * ls
+* * * * * Error
 */10 * * * * /scripts/monitor.sh
 0 2 * * * /bin/sh backup.sh
 @daily /scripts/script.sh

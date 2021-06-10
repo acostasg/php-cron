@@ -19,17 +19,31 @@ class CronTest extends TestCase
         $importJobsUseCase = $this->createMock(ImportJobsUseCase::class);
         $scheduleJobsUseCase = $this->createMock(ScheduleJobsUseCase::class);
 
-        $logger->expects($this->exactly(2))
+        $logger->expects($this->exactly(3))
             ->method('info');
 
         $importJobsUseCase->expects($this->once())
             ->method('execute')
             ->will($this->returnValue(new JobCollection()));
 
+        $response = new ScheduleJobsUseCaseResponse();
+
+        $job = JobFactory::build(
+            '/success',
+            [],
+            '4 * * * *'
+        );
+
+        $job->setOutputCode(0);
+        $job->setOutput('Success');
+
+        $response->addJobSuccessful(
+            $job
+        );
+
         $scheduleJobsUseCase->expects($this->any())
             ->method('execute')
-            ->will($this->returnValue(new ScheduleJobsUseCaseResponse()));
-
+            ->will($this->returnValue($response));
         $cron = new Cron(
             $logger,
             $importJobsUseCase,

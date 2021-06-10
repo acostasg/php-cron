@@ -172,6 +172,22 @@ class Job
     }
 
     /**
+     * @return bool
+     */
+    public function isFailExecuted(): bool
+    {
+        return ($this->outputCode > 0);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSuccessExecuted(): bool
+    {
+        return ($this->executionDateTime!= null and $this->outputCode == 0);
+    }
+
+    /**
      * @param int $outputCode
      */
     public function setOutputCode(int $outputCode): void
@@ -182,7 +198,7 @@ class Job
     /**
      * @return Expression
      */
-    public function expression(): Expression
+    public function getExpression(): Expression
     {
         return $this->cronExpression;
     }

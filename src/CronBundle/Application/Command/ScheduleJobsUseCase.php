@@ -31,8 +31,12 @@ class ScheduleJobsUseCase
         $response = new ScheduleJobsUseCaseResponse();
         foreach ($jobCollection as $job) {
             $job = $this->schedulerService->processJob($job);
-            if ($job->getOutputCode()>0) {
+
+            if ($job->isFailExecuted()) {
                 $response->addJobError($job);
+            }
+            if ($job->isSuccessExecuted()) {
+                $response->addJobSuccessful($job);
             }
         }
 
