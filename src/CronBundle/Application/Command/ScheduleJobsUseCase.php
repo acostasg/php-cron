@@ -8,10 +8,16 @@ use CronBundle\Domain\Models\Collection\JobCollection;
 class ScheduleJobsUseCase
 {
     /**
+     *  Execute jobs, return false if no exist job for execute
      * @param JobCollection $jobCollection
+     * @return bool
      */
-    public function execute(JobCollection $jobCollection): void
+    public function execute(JobCollection $jobCollection): bool
     {
-        // TODO: Implement execute() method.
+        if ($jobCollection->isEmpty()) {
+            return false;
+        }
+
+        return true;
     }
 }

@@ -36,9 +36,12 @@ class Cron implements ConsoleInterface
         $jobCollection = $this->importJobsUseCase->execute();
         $this->logger->info('Execute schedule and running service (Control+C to finish).');
 
-        while (true) {
-            $this->scheduleJobsUseCase->execute($jobCollection);
+        $existJobs = true;
+        while ($existJobs) {
+            $existJobs = $this->scheduleJobsUseCase->execute($jobCollection);
             sleep(1);
         }
+
+        $this->logger->info('Finish!!! Not Jobs pending to execute (Control+C to finish).');
     }
 }

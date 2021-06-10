@@ -40,6 +40,14 @@ class JobCollection implements Iterator
     }
 
     /**
+     * @param Job $job
+     */
+    public function add(Job $job): void
+    {
+        $this->jobs[] = $job;
+    }
+
+    /**
      * @return Job
      */
     public function current(): Job
@@ -71,5 +79,10 @@ class JobCollection implements Iterator
     public function rewind(): void
     {
         $this->iterator = 0;
+    }
+
+    public function isEmpty(): bool
+    {
+        return empty($this->jobs);
     }
 }
