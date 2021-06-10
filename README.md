@@ -35,9 +35,7 @@ execute PHP-cs-fixer
 ```
 docker exec -ti app php vendor/bin/php-cs-fixer fix src
 ```
-## Patterns Used
 
-* Command Pattern
-* Composite Patter
-* Factory Pattern
-* Decorator Pattern
+### DDD
+
+![DDD](img/ddd.png?raw=true "DDD")
