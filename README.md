@@ -4,9 +4,9 @@
 
 Implement a CRON replacement. The application must be able to take a configuration file (crontab style) and run commands on demand
 
-The cron file is in the pah:
+The cron file is in the path:
 ```
-src/CronBundle/Application/CronFiles
+src/CronBundle/Infrastucture/Repository/CronFiles/crontab
 ```
 
 # Docker
