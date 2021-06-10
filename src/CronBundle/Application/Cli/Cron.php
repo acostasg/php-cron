@@ -5,6 +5,9 @@ namespace CronBundle\Application\Cli;
 
 use CronBundle\Application\Command\ImportJobsUseCase;
 use CronBundle\Application\Command\ScheduleJobsUseCase;
+use CronBundle\Infrastucture\Repository\FileCronRepository;
+use CronBundle\Infrastucture\Repository\Handler\FileHandler;
+use CronBundle\Infrastucture\Repository\Handler\FileCronHandler;
 use Psr\Log\LoggerInterface;
 
 class Cron implements ConsoleInterface

@@ -9,6 +9,5 @@ $containerBuilder = new ContainerBuilder;
 $containerBuilder->addDefinitions(__DIR__ . '/config.php');
 $container = $containerBuilder->build();
 
-
 $cronCli = $container->get('CronBundle\Application\Cli\Cron');
 $cronCli->run();

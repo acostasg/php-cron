@@ -4,39 +4,19 @@
 namespace CronBundle\Domain\Models;
 
 use Cron\CronExpression;
+use CronBundle\Domain\Repository\Exception\InvalidJobData;
+use CronBundle\Domain\ValueObject\JobId;
 use DateTime;
 
 class Job
 {
 
     /**
-     * Job constructor.
-     * @param string $id
-     * @param string $command
-     * @param String[] $arguments
-     * @param DateTime $createdDatetime
-     * @param CronExpression $executionDateTime
-     */
-    public function __construct(
-        string $id,
-        string $command,
-        array $arguments,
-        DateTime $createdDatetime,
-        CronExpression $executionDateTime
-    ) {
-        $this->id = $id;
-        $this->command = $command;
-        $this->arguments = $arguments;
-        $this->createdDateime = $createdDatetime;
-        $this->executionDateTime = $executionDateTime;
-    }
-
-    /**
      * Unique identifier
      *
-     * @var string
+     * @var JobId
      */
-    private string $id;
+    private JobId $id;
 
     /**
      * Command line to execute
@@ -48,7 +28,7 @@ class Job
     /**
      * Arguments for the command
      *
-     * @var String[]
+     * @var string[]
      */
     private array $arguments = [];
 
@@ -62,9 +42,16 @@ class Job
     /**
      * Date time to process command
      *
+     * @var DateTime
+     */
+    private ?DateTime $executionDateTime = null;
+
+    /**
+     * Date time to process command
+     *
      * @var CronExpression
      */
-    private CronExpression $executionDateTime;
+    private CronExpression $cronExpression;
 
     /**
      * The output of the executed command
@@ -85,13 +72,13 @@ class Job
      */
     public function getId(): string
     {
-        return $this->id;
+        return $this->id->getValue();
     }
 
     /**
-     * @param string $id
+     * @param JobId $id
      */
-    public function setId(string $id): void
+    public function setId(JobId $id): void
     {
         $this->id = $id;
     }
@@ -113,7 +100,7 @@ class Job
     }
 
     /**
-     * @return String[]
+     * @return string[]
      */
     public function getArguments(): array
     {
@@ -121,7 +108,7 @@ class Job
     }
 
     /**
-     * @param String[] $arguments
+     * @param string[] $arguments
      */
     public function setArguments(array $arguments): void
     {
@@ -131,31 +118,31 @@ class Job
     /**
      * @return DateTime
      */
-    public function getCreatedDateime(): DateTime
+    public function getCreatedDatetime(): DateTime
     {
         return $this->createdDateime;
     }
 
     /**
-     * @param DateTime $createdDateime
+     * @param DateTime $createdDatetime
      */
-    public function setCreatedDateime(DateTime $createdDateime): void
+    public function setCreatedDatetime(DateTime $createdDatetime): void
     {
-        $this->createdDateime = $createdDateime;
+        $this->createdDateime = $createdDatetime;
     }
 
     /**
-     * @return CronExpression
+     * @return ?DateTime
      */
-    public function getExecutionDateTime(): CronExpression
+    public function getExecutionDateTime(): ?DateTime
     {
         return $this->executionDateTime;
     }
 
     /**
-     * @param CronExpression $executionDateTime
+     * @param DateTime $executionDateTime
      */
-    public function setExecutionDateTime(CronExpression $executionDateTime): void
+    public function setExecutionDateTime(DateTime $executionDateTime): void
     {
         $this->executionDateTime = $executionDateTime;
     }
@@ -190,5 +177,40 @@ class Job
     public function setOutputCode(int $outputCode): void
     {
         $this->outputCode = $outputCode;
+    }
+
+    /**
+     * @return CronExpression
+     */
+    public function getCronExpression(): CronExpression
+    {
+        return $this->cronExpression;
+    }
+
+
+    /**
+     * Job constructor.
+     * @param JobId $id
+     * @param string $command
+     * @param string[] $arguments
+     * @param DateTime $createdDatetime
+     * @param CronExpression $cronExpression
+     * @throws InvalidJobData
+     */
+    public function __construct(
+        JobId $id,
+        string $command,
+        array $arguments,
+        DateTime $createdDatetime,
+        CronExpression $cronExpression
+    ) {
+        if (empty($command)) {
+            throw new InvalidJobData("Empty command is no valid job");
+        }
+        $this->id = $id;
+        $this->command = $command;
+        $this->arguments = $arguments;
+        $this->createdDateime = $createdDatetime;
+        $this->cronExpression = $cronExpression;
     }
 }

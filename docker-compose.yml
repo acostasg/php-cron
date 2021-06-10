@@ -14,4 +14,4 @@ services:
         build: composer
         volumes:
             - .:/var/www/html
-        command: composer install
+        command: composer update
